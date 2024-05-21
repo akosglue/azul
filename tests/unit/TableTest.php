@@ -11,7 +11,7 @@ class TableTest extends BaseUnit
 {
 	public function testCountTotal_2DifferentColors_Total2(): void
 	{
-		$table = $this->tester->createGameTable();
+		$table = $this->createGameTable();
 		$table->addToCenterPile(new TileCollection([
 			new Tile(Color::RED),
 			new Tile(Color::CYAN),
@@ -21,7 +21,7 @@ class TableTest extends BaseUnit
 
 	public function testCountTotal_2SameColors_Total2(): void
 	{
-		$table = $this->tester->createGameTable();
+		$table = $this->createGameTable();
 		$table->addToCenterPile(new TileCollection([
 			new Tile(Color::RED),
 			new Tile(Color::RED),
@@ -31,13 +31,13 @@ class TableTest extends BaseUnit
 
 	public function testCountTotal_Empty_Total0(): void
 	{
-		$table = $this->tester->createGameTable();
+		$table = $this->createGameTable();
 		$this->assertEquals(0, $table->getTilesCount());
 	}
 
 	public function testCountByColor(): void
 	{
-		$table = $this->tester->createGameTable();
+		$table = $this->createGameTable();
 		$table->addToCenterPile(new TileCollection([
 			new Tile(Color::RED),
 			new Tile(Color::RED),
@@ -54,7 +54,7 @@ class TableTest extends BaseUnit
 
 	public function testTakeMarker_HasMarker_NoMarkerAfter(): void
 	{
-		$table = $this->tester->createGameTable();
+		$table = $this->createGameTable();
 		$this->assertTrue($table->hasMarker());
 		$marker = $table->takeMarker();
 		$this->assertNotNull($marker);
@@ -63,7 +63,7 @@ class TableTest extends BaseUnit
 
 	public function testTakeMarker_Twice_GotException(): void
 	{
-		$table = $this->tester->createGameTable();
+		$table = $this->createGameTable();
 		$table->takeMarker();
 		$this->expectException(MarkerAlreadyTakenException::class);
 		$table->takeMarker();
@@ -71,7 +71,7 @@ class TableTest extends BaseUnit
 
 	public function testTake_HasMarker_MarkerLeft(): void
 	{
-		$table = $this->tester->createGameTable();
+		$table = $this->createGameTable();
 		$color = Color::RED;
 		$table->addToCenterPile(new TileCollection([
 			new Tile($color),

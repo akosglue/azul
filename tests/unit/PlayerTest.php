@@ -19,14 +19,14 @@ class PlayerTest extends BaseUnit
 		$player = new Player(new Board());
 		$factory = new Factory(new TileCollection([new Tile(Color::BLUE)]));
 		$move = $player->getNextMove(new FactoryCollection([$factory]),
-			$this->tester->createGameTable());
+			$this->createGameTable());
 		$this->assertNotNull($move);
 	}
 
 	public function testGetNextMove_TiledFactoryEmptyTable_TookTilesFromFactory(): void
 	{
 		$player = new Player(new Board());
-		$t = $this->tester->createGameTable();
+		$t = $this->createGameTable();
 		$factory = new Factory(new TileCollection([new Tile(Color::BLUE)]));
 
 		$move = $player->getNextMove(new FactoryCollection([$factory]), $t);
@@ -36,7 +36,7 @@ class PlayerTest extends BaseUnit
 	public function testGetNextMove_EmptyFactoryTiledTable_TookTilesFromTable(): void
 	{
 		$player = new Player(new Board());
-		$t = $this->tester->createGameTable();
+		$t = $this->createGameTable();
 		$t->addToCenterPile(new TileCollection([new Tile(Color::BLUE)]));
 
 		$move = $player->getNextMove(new FactoryCollection([new Factory(new TileCollection())]),
@@ -52,7 +52,7 @@ class PlayerTest extends BaseUnit
 		$board->placeTiles(new TileCollection([new Tile(Color::RED)]), Board::ROW_3);
 		$board->placeTiles(new TileCollection([new Tile(Color::RED)]), Board::ROW_4);
 		$board->placeTiles(new TileCollection([new Tile(Color::RED)]), Board::ROW_5);
-		$t = $this->tester->createGameTable(null);
+		$t = $this->createGameTable(null);
 		$t->addToCenterPile(new TileCollection([new Tile(Color::BLACK)]));
 
 		$this->assertEquals(0, $board->getFloorTilesCount());

@@ -9,7 +9,7 @@ modules:
     enabled:
         - PhpBrowser:
             url: http://localhost/myapp
-        - \Helper\Acceptance
+        #- \Helper\Acceptance
     step_decorators: ~
 coverage:
     enabled: false

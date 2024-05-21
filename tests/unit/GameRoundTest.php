@@ -12,7 +12,7 @@ class GameRoundTest extends BaseUnit
 {
 	public function testKeepPlaying_EmptyFactoriesAndTable_False(): void
 	{
-		$t = $this->tester->createGameTable();
+		$t = $this->createGameTable();
 		$round = new GameRound($t,
 			[
 				$f = new Factory(
