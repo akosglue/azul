@@ -16,7 +16,13 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ConsoleReporter implements EventSubscriberInterface
 {
-	private const EMPTY_SLOT_SIGN = '🖤';
+    private const EMPTY_SLOT_SIGNS = [
+        Color::BLACK => '🖤',
+        Color::BLUE => '💙',
+        Color::YELLOW => '💛',
+        Color::CYAN => '💚',
+        Color::RED => '❤️',
+    ];
 	private const SECONDS_PAUSE_BETWEEN_MOVES = 100000;
 	private OutputInterface $output;
 	private \Azul\Game\GameRound $round;
@@ -67,7 +73,7 @@ class ConsoleReporter implements EventSubscriberInterface
 		$this->drawFactories($this->round->getFactories());
 		$this->drawTable($this->round->getTable());
 		$this->drawPlayers();
-		$this->writeln(str_repeat('_', 35) . ++$roundCount . str_repeat('_', 35));
+		$this->writeln(str_repeat('_', 49) . ++$roundCount . str_repeat('_', 49));
 		$this->wait();
 	}
 
@@ -152,12 +158,12 @@ class ConsoleReporter implements EventSubscriberInterface
 				}
 				$this->write(' | ');
 				# wall
-				foreach ($player->getBoard()->getPattern($row) as $tile) {
+				foreach ($player->getBoard()->getPattern($row) as $k => $tile) {
 					if ($tile) {
 						$this->drawTile($tile);
 					} else {
-						$this->write(self::EMPTY_SLOT_SIGN);
-					}
+                        $this->drawWallTile($k, self::EMPTY_SLOT_SIGNS[$k]);
+                    }
 				}
 
 				$this->write("\t\t\t\t");
@@ -174,7 +180,15 @@ class ConsoleReporter implements EventSubscriberInterface
 			$this->write("\t\t\t");
 		}
 		$this->writeln('');
+        $this->writeln(str_repeat('_', 45) . '<info>round end</info>' . str_repeat('_', 45));
+        $this->writeln('');
+        $this->writeln('');
 	}
+
+    private function drawWallTile($rowNum, $tile)
+    {
+        $this->write($tile);
+    }
 
 	private function wait(): void
 	{
